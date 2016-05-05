@@ -11,7 +11,7 @@ public class CraftWorldHandle extends WorldHandle {
 		AbstractClass craftworld = new SamePackageClass(server.getBukkitServerClass(), "CraftWorld");
 		worldField = new NamedExecutor(craftworld.field(), "world");
 		
-		this.worldClass = new World.WorldClass(server);
-		this.blockPositionClass = new BlockPosition.BlockPositionClass(server);
+		this.worldClass = new World.Class(server);
+		this.blockPositionClass = new BlockPosition.Class(server);
 	}
 }

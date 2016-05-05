@@ -12,12 +12,12 @@ import net.aegistudio.reflect.method.LengthedExecutor;
  * @author aegistudio
  */
 
-public class World extends Instance<World.WorldClass>{
-	public static class WorldClass extends SamePackageClass {
+public class World extends Instance<World.Class>{
+	public static class Class extends SamePackageClass {
 		AbstractExecutor getTileEntityMethod;
 		AbstractExecutor setTileEntityMethod;
 		
-		public WorldClass(MinecraftServer server) throws Exception {
+		public Class(MinecraftServer server) throws Exception {
 			super(server.getMinecraftServerClass(), "World");
 			
 			AbstractClass minecraftWorld = new SamePackageClass(server.getMinecraftServerClass(), "World");

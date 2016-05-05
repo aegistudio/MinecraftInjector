@@ -7,8 +7,8 @@ public abstract class WorldHandle {
 	MinecraftServer server;
 	AbstractExecutor worldField;
 
-	World.WorldClass worldClass;
-	BlockPosition.BlockPositionClass blockPositionClass;
+	World.Class worldClass;
+	BlockPosition.Class blockPositionClass;
 	
 	public World getHandle(org.bukkit.World world) {
 		return new World(this.server, worldField.invoke(world));

@@ -12,10 +12,10 @@ import net.aegistudio.reflect.method.MatchedExecutor;
  * @author aegistudio
  */
 
-public class BlockPosition extends Instance<BlockPosition.BlockPositionClass> {
-	public static class BlockPositionClass extends SamePackageClass {
+public class BlockPosition extends Instance<BlockPosition.Class> {
+	public static class Class extends SamePackageClass {
 		public AbstractExecutor newBlockPositionI;
-		public BlockPositionClass(MinecraftServer server) throws Exception{
+		public Class(MinecraftServer server) throws Exception{
 			super(server.getMinecraftServerClass(), "BlockPosition");
 			newBlockPositionI = new MatchedExecutor(constructor(), int.class, int.class, int.class);
 		}
