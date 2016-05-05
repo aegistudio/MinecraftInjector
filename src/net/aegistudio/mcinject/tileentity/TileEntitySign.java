@@ -72,7 +72,7 @@ public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
 	}
 	
 	public void setLine(int index, String line) {
-		clazz.setLine(thiz, index, new ChatComponentText(server, line));
+		clazz.setLine(thiz, index, new ChatComponentText(server, line).thiz);
 	}
 	
 	public Packet<PacketPlayOutUpdateSign.Class> getUpdatePacket() {

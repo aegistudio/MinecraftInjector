@@ -5,7 +5,6 @@ import net.aegistudio.mcinject.tileentity.TileEntity;
 import net.aegistudio.reflect.clazz.AbstractClass;
 import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
-import net.aegistudio.reflect.clazz.ThisClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
 import net.aegistudio.reflect.method.LengthedExecutor;
 
@@ -36,10 +35,10 @@ public class World extends Instance<World.Class>{
 		this(server, server.getWorldManager().getHandle(bukkitWorld));
 	}
 	
-	public TileEntity<?> getTileEntity(BlockPosition blockPosition) {
+	public <T extends TileEntity.Class> TileEntity<T> getTileEntity(BlockPosition blockPosition, T cast) {
 		Object entityObject = clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
 		if(entityObject == null) return null;
-		return new TileEntity<TileEntity.Class>((TileEntity.Class) new ThisClass(entityObject), entityObject);
+		return new TileEntity<T>(cast, entityObject);
 	}
 
 	public void setTileEntity(BlockPosition blockPosition, TileEntity<?> tileEntity) {
