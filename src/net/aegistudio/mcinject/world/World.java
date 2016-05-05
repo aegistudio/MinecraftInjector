@@ -42,6 +42,7 @@ public class World extends Instance<World.Class>{
 	}
 
 	public void setTileEntity(BlockPosition blockPosition, TileEntity<?> tileEntity) {
-		clazz.setTileEntityMethod.invoke(thiz, blockPosition.thiz, tileEntity.thiz);
+		clazz.setTileEntityMethod.invoke(thiz, blockPosition.thiz, 
+				tileEntity == null? null : tileEntity.thiz);
 	}
 }
