@@ -1,8 +1,8 @@
 package net.aegistudio.reflect.clazz;
 
 public class ThisClass extends AbstractClass {
-	private final Class<?> clazz;
-	public ThisClass(Class<?> clazz) {
+	private final java.lang.Class<?> clazz;
+	public ThisClass(java.lang.Class<?> clazz) {
 		this.clazz = clazz;
 	}
 	
@@ -11,7 +11,7 @@ public class ThisClass extends AbstractClass {
 	}
 	
 	@Override
-	public Class<?> getClazz() {
+	public java.lang.Class<?> getClazz() {
 		return clazz;
 	}
 
@@ -19,5 +19,4 @@ public class ThisClass extends AbstractClass {
 	public String getPackage() {
 		return clazz.getPackage().toString();
 	}
-
 }

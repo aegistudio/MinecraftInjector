@@ -9,14 +9,14 @@ import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
 import net.aegistudio.reflect.method.NamedExecutor;
 
-public class PlayerManager {
+public class PlayerHandle {
 	MinecraftServer server;
 	AbstractExecutor getHandle;
 	AbstractExecutor playerConnection;
 	
 	PlayerConnection.Class playerConnectionClass;
 	
-	public PlayerManager(MinecraftServer server) throws Exception {
+	public PlayerHandle(MinecraftServer server) throws Exception {
 		this.server = server;
 		
 		AbstractClass craftPlayer = new SamePackageClass(server.getBukkitServerClass(), "entity.CraftPlayer");
@@ -28,7 +28,7 @@ public class PlayerManager {
 		this.playerConnectionClass = new PlayerConnection.Class(server);
 	}
 	
-	public PlayerConnection getConnection(Player player) {
+	public PlayerConnection getHandle(Player player) {
 		Object handle = getHandle.invoke(player);
 		Object connection = this.playerConnection.invoke(handle);
 		return new PlayerConnection(server, connection);

@@ -1,18 +1,18 @@
 package net.aegistudio.reflect.clazz;
 
 public class AbsolutePackageClass extends AbstractClass {
-	private final Class<?> clazz;
+	private final java.lang.Class<?> clazz;
 	private final String packageName;
 	private final String absolutePath;
 	public AbsolutePackageClass(String packageName, String clazzName) 
 			throws ClassNotFoundException {
 		this.packageName = packageName;
 		this.absolutePath = packageName + "." + clazzName;
-		clazz = Class.forName(this.absolutePath);
+		clazz = java.lang.Class.forName(this.absolutePath);
 	}
 	
 	@Override
-	public Class<?> getClazz() {
+	public java.lang.Class<?> getClazz() {
 		return clazz;
 	}
 	

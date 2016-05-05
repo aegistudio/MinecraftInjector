@@ -1,7 +1,7 @@
 package net.aegistudio.reflect.clazz;
 
 public class SamePackageClass extends AbsolutePackageClass{
-	public <T> SamePackageClass(Class<T> sourceClass, String clazzName) throws ClassNotFoundException {
+	public <T> SamePackageClass(java.lang.Class<T> sourceClass, String clazzName) throws ClassNotFoundException {
 		super(sourceClass.getPackage().getName(), clazzName);
 	}
 	

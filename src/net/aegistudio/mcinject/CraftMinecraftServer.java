@@ -3,7 +3,7 @@ package net.aegistudio.mcinject;
 import org.bukkit.Server;
 
 import net.aegistudio.mcinject.network.PacketManager;
-import net.aegistudio.mcinject.network.PlayerManager;
+import net.aegistudio.mcinject.network.PlayerHandle;
 import net.aegistudio.mcinject.world.CraftWorldHandle;
 import net.aegistudio.mcinject.world.WorldHandle;
 import net.aegistudio.reflect.clazz.AbstractClass;
@@ -35,7 +35,7 @@ public class CraftMinecraftServer implements MinecraftServer {
 		this.minecraftServerClazz = new ThisClass(this.minecraftServer);
 		this.worldManager = new CraftWorldHandle(this);
 		this.packetManager = new PacketManager(this);
-		this.playerManager = new PlayerManager(this);
+		this.playerManager = new PlayerHandle(this);
 	}
 
 	@Override
@@ -69,9 +69,9 @@ public class CraftMinecraftServer implements MinecraftServer {
 		return packetManager;
 	}
 
-	private final PlayerManager playerManager;
+	private final PlayerHandle playerManager;
 	@Override
-	public PlayerManager getPlayerManager() {
+	public PlayerHandle getPlayerManager() {
 		return playerManager;
 	}
 }

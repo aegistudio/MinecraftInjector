@@ -1,5 +1,7 @@
 package net.aegistudio.mcinject.world;
 
+import org.bukkit.Location;
+
 import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
@@ -31,5 +33,9 @@ public class BlockPosition extends Instance<BlockPosition.Class> {
 	
 	public BlockPosition(MinecraftServer server, int x, int y, int z) {
 		this(server, server.getWorldManager().blockPositionClass.newBlockPosition(x, y, z));
+	}
+	
+	public BlockPosition(MinecraftServer server, Location location) {
+		this(server, location.getBlockX(), location.getBlockY(), location.getBlockZ());
 	}
 }

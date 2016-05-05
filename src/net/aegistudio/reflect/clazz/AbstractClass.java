@@ -8,8 +8,8 @@ import net.aegistudio.reflect.method.FieldInvocable;
 import net.aegistudio.reflect.method.Invocable;
 import net.aegistudio.reflect.method.MethodInvocable;
 
-public abstract class AbstractClass {
-	public abstract Class<?> getClazz();
+public abstract class AbstractClass implements Class {
+	public abstract java.lang.Class<?> getClazz();
 	
 	public abstract String getPackage();
 	
@@ -33,7 +33,7 @@ public abstract class AbstractClass {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private <T, U> T[] loadup(U[] input, Class<T> t, Function<U, T> translate) {
+	private <T, U> T[] loadup(U[] input, java.lang.Class<T> t, Function<U, T> translate) {
 		T[] result = (T[]) Array.newInstance(t, input.length);
 		for(int i = 0; i < input.length; i ++)
 			result[i] = translate.apply(input[i]);

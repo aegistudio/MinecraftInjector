@@ -5,61 +5,43 @@ import org.bukkit.map.MapView;
 import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.mcinject.world.BlockPosition;
 import net.aegistudio.mcinject.world.World;
-import net.aegistudio.reflect.clazz.AbstractClass;
-import net.aegistudio.reflect.clazz.SamePackageClass;
-import net.aegistudio.reflect.method.AbstractExecutor;
-import net.aegistudio.reflect.method.Invocable;
-import net.aegistudio.reflect.method.LengthedExecutor;
-import net.aegistudio.reflect.method.MatchedExecutor;
-import net.aegistudio.reflect.method.ThisExecutor;
 
 public class PacketManager {
-	public PacketManager(MinecraftServer server) throws ClassNotFoundException, NoSuchMethodException, SecurityException {
-		AbstractClass poBlockChange = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutBlockChange");
-		this.playOutBlockChange = new LengthedExecutor(poBlockChange.constructor(), 2);
+	public MinecraftServer server;
+	public PacketPlayOutMap.Class playOutMap;
+	public PacketPlayOutBlockChange.Class playOutBlockChange;
+	
+	public PacketPlayInUseEntity.Class playInUseEntity;
+	
+	public PacketManager(MinecraftServer server) throws Exception {
+		this.server = server;
+
+		//AbstractClass poSignEditor = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutOpenSignEditor");
+		//this.playOutOpenSignEditor = new LengthedExecutor(poSignEditor.constructor(), 1);
 		
-		AbstractClass poSignEditor = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutOpenSignEditor");
-		this.playOutOpenSignEditor = new LengthedExecutor(poSignEditor.constructor(), 1);
+		this.playOutBlockChange = new PacketPlayOutBlockChange.Class(server);
+		this.playOutMap = new PacketPlayOutMap.Class(server);
 		
-		AbstractClass piUseEntity = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayInUseEntity");
-		this.playInUseEntity = new LengthedExecutor(piUseEntity.constructor(), 0);
-		this.playInUseEntity_entityId = new MatchedExecutor(piUseEntity.field(), int.class);
-		
-		AbstractClass poMap = new SamePackageClass(server.getMinecraftServerClass(), "PlayOutMap");
-		for(Invocable constructor : poMap.constructor())
-			for(PacketPoMapHandler.EnumHandler handler : PacketPoMapHandler.EnumHandler.values())
-				if(handler.paramCount == constructor.getParameterList().length) {
-					this.playOutMap = new ThisExecutor(constructor);
-					this.playOutMapHandler = handler;
-					break;
-				}
-		if(this.playOutMap == null) throw new NoSuchMethodException();
+		this.playInUseEntity = new PacketPlayInUseEntity.Class(server);
 	}
 	
-	AbstractExecutor playOutBlockChange;
-	public Packet playOutBlockChange(World world, BlockPosition position) {
-		return new Packet(playOutBlockChange.invoke(null, world.thiz, position.thiz), true);
-	}
-	
-	AbstractExecutor playOutMap;
-	PacketPoMapHandler.EnumHandler playOutMapHandler;
-	public Packet playOutMap(MapView mapView, byte[] raster, int columnOffset,
-			int rowOffset, int columnLength, int rowLength) throws Exception {
-		Object packet = playOutMapHandler.handler.playOutMap(playOutMap, mapView, raster, 
-				columnOffset, rowOffset, columnLength, rowLength);
-		return new Packet(packet, true);
-	}
-	
-	AbstractExecutor playOutOpenSignEditor;
-	public Packet playOutOpenSignEditor(Object tileEntitySign) {
-		return new Packet(playOutBlockChange.invoke(null, tileEntitySign), true);
+	public Packet<PacketPlayOutBlockChange.Class> playOutBlockChange(World world, BlockPosition position) {
+		return new PacketPlayOutBlockChange(server, world, position);
 	}
 
-	AbstractExecutor playInUseEntity;
-	AbstractExecutor playInUseEntity_entityId;
-	public Packet playInUseEntity(org.bukkit.entity.Entity entity) {
-		Object packet = playInUseEntity.invoke(null);
-		playInUseEntity_entityId.invoke(packet, entity.getEntityId());
-		return new Packet(packet, false);
+	public Packet<PacketPlayOutMap.Class> playOutMap(MapView mapView, byte[] raster, int columnOffset,
+			int rowOffset, int columnLength, int rowLength) throws Exception {
+		return new PacketPlayOutMap(server, mapView, raster, rowLength, rowLength, rowLength, rowLength);
+	}
+	
+	/*
+	AbstractExecutor playOutOpenSignEditor;
+	public Packet<?> playOutOpenSignEditor(Object tileEntitySign) {
+		return new Packet(playOutOpenSignEditor.invoke(null, tileEntitySign), true);
+	}
+	*/
+
+	public Packet<PacketPlayInUseEntity.Class> playInUseEntity(org.bukkit.entity.Entity entity) {
+		return new PacketPlayInUseEntity(server, entity);
 	}
 }

@@ -33,16 +33,16 @@ public class PlayerConnection extends Instance<PlayerConnection.Class>{
 	}
 	
 	public PlayerConnection(MinecraftServer server, Player player) {
-		this(server, server.getPlayerManager().getConnection(player));
+		this(server, server.getPlayerManager().getHandle(player));
 	}
 	
-	public void sendPacket(Packet packet) {
-		if(!packet.isPlayOut) throw new IllegalArgumentException("Use loopback for play in.");
-		clazz.sendPacket.invoke(thiz, packet.getPacket());
+	public void sendPacket(Packet<?> packet) {
+		if(!packet.isPlayOut()) throw new IllegalArgumentException("Use loopback for play in.");
+		clazz.sendPacket.invoke(thiz, packet.thiz);
 	}
 	
-	public void loopBack(Packet packet) {
-		if(packet.isPlayOut) throw new IllegalArgumentException("Use sendPacket for play out.");
-		clazz.loopbackMethod.get(new ThisClass(packet.packet)).invoke(thiz, packet.packet);
+	public void loopBack(Packet<?> packet) {
+		if(packet.isPlayOut()) throw new IllegalArgumentException("Use sendPacket for play out.");
+		clazz.loopbackMethod.get(new ThisClass(packet.clazz)).invoke(thiz, packet.thiz);
 	}
 }

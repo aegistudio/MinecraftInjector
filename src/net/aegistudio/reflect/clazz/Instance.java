@@ -1,6 +1,6 @@
 package net.aegistudio.reflect.clazz;
 
-public class Instance<Clazz extends AbstractClass> {
+public class Instance<Clazz extends Class> {
 	public final Clazz clazz;
 	public final Object thiz;
 
