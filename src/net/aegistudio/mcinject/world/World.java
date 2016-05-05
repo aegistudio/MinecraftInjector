@@ -38,6 +38,7 @@ public class World extends Instance<World.Class>{
 	
 	public TileEntity<?> getTileEntity(BlockPosition blockPosition) {
 		Object entityObject = clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
+		if(entityObject == null) return null;
 		return new TileEntity<TileEntity.Class>((TileEntity.Class) new ThisClass(entityObject), entityObject);
 	}
 
