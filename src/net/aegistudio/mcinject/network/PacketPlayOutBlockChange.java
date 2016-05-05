@@ -33,7 +33,7 @@ public class PacketPlayOutBlockChange extends Packet<PacketPlayOutBlockChange.Cl
 	
 	public PacketPlayOutBlockChange(MinecraftServer server, Location blockLocation) {
 		this(server, server.getPacketManager().playOutBlockChange.getClazz()
-				.newInstance(new World(server, blockLocation).thiz, 
+				.newInstance(new World(server, blockLocation.getWorld()).thiz, 
 						new BlockPosition(server, blockLocation).thiz));
 	}
 }
