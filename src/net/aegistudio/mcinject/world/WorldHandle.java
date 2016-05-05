@@ -11,7 +11,7 @@ public abstract class WorldHandle {
 	ProxiedClass<World.Class> worldClass;
 	ProxiedClass<BlockPosition.Class> blockPositionClass;
 	
-	public World getHandle(org.bukkit.World world) {
-		return new World(this.server, worldField.invoke(world));
+	public Object getHandle(org.bukkit.World world) {
+		return worldField.invoke(world);
 	}
 }
