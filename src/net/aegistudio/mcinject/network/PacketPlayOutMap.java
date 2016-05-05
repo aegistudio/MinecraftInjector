@@ -54,12 +54,13 @@ public class PacketPlayOutMap extends Packet<PacketPlayOutMap.Class> {
 	}
 	
 	PacketPlayOutMap(MinecraftServer server, Object instance) {
-		super(server.getPacketManager().playOutMap, instance, true);
+		super(server.getPacketManager().playOutMap.getClazz(), instance, true);
 	}
 	
 	public PacketPlayOutMap(MinecraftServer server, MapView mapView, byte[] raster, int columnOffset,
 			int rowOffset, int columnLength, int rowLength) {
-		this(server, server.getPacketManager().playOutMap.handler.playOutMap(server.getPacketManager().playOutMap.constructor, 
+		this(server, server.getPacketManager().playOutMap.getClazz().handler.playOutMap(
+				server.getPacketManager().playOutMap.getClazz().constructor, 
 				mapView, raster, columnOffset, rowOffset, columnLength, rowLength));
 	}
 }

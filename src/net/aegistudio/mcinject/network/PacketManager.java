@@ -3,15 +3,16 @@ package net.aegistudio.mcinject.network;
 import org.bukkit.map.MapView;
 
 import net.aegistudio.mcinject.MinecraftServer;
+import net.aegistudio.mcinject.ProxiedClass;
 import net.aegistudio.mcinject.world.BlockPosition;
 import net.aegistudio.mcinject.world.World;
 
 public class PacketManager {
 	public MinecraftServer server;
-	public PacketPlayOutMap.Class playOutMap;
-	public PacketPlayOutBlockChange.Class playOutBlockChange;
+	public ProxiedClass<PacketPlayOutMap.Class> playOutMap;
+	public ProxiedClass<PacketPlayOutBlockChange.Class> playOutBlockChange;
 	
-	public PacketPlayInUseEntity.Class playInUseEntity;
+	public ProxiedClass<PacketPlayInUseEntity.Class> playInUseEntity;
 	
 	public PacketManager(MinecraftServer server) throws Exception {
 		this.server = server;
@@ -19,10 +20,10 @@ public class PacketManager {
 		//AbstractClass poSignEditor = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutOpenSignEditor");
 		//this.playOutOpenSignEditor = new LengthedExecutor(poSignEditor.constructor(), 1);
 		
-		this.playOutBlockChange = new PacketPlayOutBlockChange.Class(server);
-		this.playOutMap = new PacketPlayOutMap.Class(server);
+		this.playOutBlockChange = new ProxiedClass<PacketPlayOutBlockChange.Class>(server, s -> new PacketPlayOutBlockChange.Class(server));
+		this.playOutMap = new ProxiedClass<PacketPlayOutMap.Class>(server, s -> new PacketPlayOutMap.Class(s));
 		
-		this.playInUseEntity = new PacketPlayInUseEntity.Class(server);
+		this.playInUseEntity = new ProxiedClass<PacketPlayInUseEntity.Class>(server, s -> new PacketPlayInUseEntity.Class(s));
 	}
 	
 	public Packet<PacketPlayOutBlockChange.Class> playOutBlockChange(World world, BlockPosition position) {

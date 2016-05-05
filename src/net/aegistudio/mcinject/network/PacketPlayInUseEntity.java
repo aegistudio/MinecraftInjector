@@ -28,7 +28,7 @@ public class PacketPlayInUseEntity extends Packet<PacketPlayInUseEntity.Class>{
 	}
 	
 	public PacketPlayInUseEntity(MinecraftServer server, org.bukkit.entity.Entity entity) {
-		this(server.getPacketManager().playInUseEntity, 
-				server.getPacketManager().playInUseEntity.newInstance(entity));
+		this(server.getPacketManager().playInUseEntity.getClazz(), 
+				server.getPacketManager().playInUseEntity.getClazz().newInstance(entity));
 	}
 }

@@ -23,15 +23,16 @@ public class PacketPlayOutBlockChange extends Packet<PacketPlayOutBlockChange.Cl
 	}
 	
 	public PacketPlayOutBlockChange(MinecraftServer server, Object instance) {
-		super(server.getPacketManager().playOutBlockChange, instance, true);
+		super(server.getPacketManager().playOutBlockChange.getClazz(), instance, true);
 	}
 	
 	public PacketPlayOutBlockChange(MinecraftServer server, World world, BlockPosition blockPosition) {
-		this(server, server.getPacketManager().playOutBlockChange.newInstance(world.thiz, blockPosition.thiz));
+		this(server, server.getPacketManager().playOutBlockChange
+				.getClazz().newInstance(world.thiz, blockPosition.thiz));
 	}
 	
 	public PacketPlayOutBlockChange(MinecraftServer server, Location blockLocation) {
-		this(server, server.getPacketManager().playOutBlockChange
+		this(server, server.getPacketManager().playOutBlockChange.getClazz()
 				.newInstance(new World(server, blockLocation).thiz, 
 						new BlockPosition(server, blockLocation).thiz));
 	}
