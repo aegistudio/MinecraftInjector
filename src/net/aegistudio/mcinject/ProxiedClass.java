@@ -17,7 +17,7 @@ public class ProxiedClass <T extends net.aegistudio.reflect.clazz.Class> {
 			instance = (T) getter.make(server);
 		}
 		catch(Exception e) {
-			throw new RuntimeException("Inject failure!");
+			throw new RuntimeException("Inject failure!", e);
 		}
 		return instance;
 	}

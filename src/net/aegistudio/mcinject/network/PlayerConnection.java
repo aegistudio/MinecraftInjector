@@ -24,7 +24,8 @@ public class PlayerConnection extends Instance<PlayerConnection.Class>{
 			sendPacket = new NamedExecutor(method(), "sendPacket");
 			
 			for(Invocable method : method())
-				loopbackMethod.put(new ThisClass(method.getParameterList()[0]), new ThisExecutor(method));
+				if(method.getParameterList().length == 1)
+					loopbackMethod.put(new ThisClass(method.getParameterList()[0]), new ThisExecutor(method));
 		}
 	}
 	
