@@ -3,7 +3,7 @@ package net.aegistudio.mcinject.network;
 import org.bukkit.entity.Player;
 
 import net.aegistudio.mcinject.MinecraftServer;
-
+import net.aegistudio.mcinject.ProxiedClass;
 import net.aegistudio.reflect.clazz.AbstractClass;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
@@ -14,7 +14,7 @@ public class PlayerHandle {
 	AbstractExecutor getHandle;
 	AbstractExecutor playerConnection;
 	
-	PlayerConnection.Class playerConnectionClass;
+	ProxiedClass<PlayerConnection.Class> playerConnectionClass;
 	
 	public PlayerHandle(MinecraftServer server) throws Exception {
 		this.server = server;
@@ -25,7 +25,7 @@ public class PlayerHandle {
 		AbstractClass entityPlayer = new SamePackageClass(server.getMinecraftServerClass(), "EntityPlayer");
 		playerConnection = new NamedExecutor(entityPlayer.field(), "playerConnection");
 
-		this.playerConnectionClass = new PlayerConnection.Class(server);
+		this.playerConnectionClass = new ProxiedClass<PlayerConnection.Class>(server, s -> new PlayerConnection.Class(s));
 	}
 	
 	public PlayerConnection getHandle(Player player) {

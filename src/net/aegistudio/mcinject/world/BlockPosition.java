@@ -28,11 +28,11 @@ public class BlockPosition extends Instance<BlockPosition.Class> {
 	}
 	
 	public BlockPosition(MinecraftServer server, Object blockPosition) {
-		super(server.getWorldManager().blockPositionClass, blockPosition);
+		super(server.getWorldManager().blockPositionClass.getClazz(), blockPosition);
 	}
 	
 	public BlockPosition(MinecraftServer server, int x, int y, int z) {
-		this(server, server.getWorldManager().blockPositionClass.newBlockPosition(x, y, z));
+		this(server, server.getWorldManager().blockPositionClass.getClazz().newBlockPosition(x, y, z));
 	}
 	
 	public BlockPosition(MinecraftServer server, Location location) {

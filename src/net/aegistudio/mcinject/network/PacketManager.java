@@ -14,7 +14,7 @@ public class PacketManager {
 	
 	public ProxiedClass<PacketPlayInUseEntity.Class> playInUseEntity;
 	
-	public PacketManager(MinecraftServer server) throws Exception {
+	public PacketManager(MinecraftServer server) {
 		this.server = server;
 
 		//AbstractClass poSignEditor = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutOpenSignEditor");

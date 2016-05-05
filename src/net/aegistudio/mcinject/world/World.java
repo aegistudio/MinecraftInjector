@@ -27,7 +27,7 @@ public class World extends Instance<World.Class>{
 	}
 
 	public World(MinecraftServer server, Object world) {
-		super(server.getWorldManager().worldClass, world);
+		super(server.getWorldManager().worldClass.getClazz(), world);
 	}
 
 	public World(MinecraftServer server, org.bukkit.World bukkitWorld) {

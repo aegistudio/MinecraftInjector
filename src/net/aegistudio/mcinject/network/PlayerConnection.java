@@ -29,7 +29,7 @@ public class PlayerConnection extends Instance<PlayerConnection.Class>{
 	}
 	
 	public PlayerConnection(MinecraftServer server, Object connection) {
-		super(server.getPlayerManager().playerConnectionClass, connection);
+		super(server.getPlayerManager().playerConnectionClass.getClazz(), connection);
 	}
 	
 	public PlayerConnection(MinecraftServer server, Player player) {
