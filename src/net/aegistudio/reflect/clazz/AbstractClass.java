@@ -23,6 +23,10 @@ public abstract class AbstractClass {
 				Invocable.class, constructor -> new ConstructorInvocable(constructor));
 	}
 	
+	public boolean isInstance(Object instance) {
+		return getClazz().isInstance(instance);
+	}
+	
 	public Invocable[] field() {
 		return loadup(getClazz().getDeclaredFields(), 
 				Invocable.class, field -> new FieldInvocable(field));

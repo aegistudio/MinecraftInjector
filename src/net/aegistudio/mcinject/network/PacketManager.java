@@ -14,10 +14,7 @@ import net.aegistudio.reflect.method.MatchedExecutor;
 import net.aegistudio.reflect.method.ThisExecutor;
 
 public class PacketManager {
-	private final MinecraftServer server;
 	public PacketManager(MinecraftServer server) throws ClassNotFoundException, NoSuchMethodException, SecurityException {
-		this.server = server;
-		
 		AbstractClass poBlockChange = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutBlockChange");
 		this.playOutBlockChange = new LengthedExecutor(poBlockChange.constructor(), 2);
 		
@@ -41,13 +38,7 @@ public class PacketManager {
 	
 	AbstractExecutor playOutBlockChange;
 	public Packet playOutBlockChange(World world, BlockPosition position) {
-		return new Packet(playOutBlockChange.invoke(null, world.world, position.blockPosition), true);
-	}
-	
-	public Packet playOutBlockChange(org.bukkit.World world, int x, int y, int z) {
-		World worldInstance = server.getWorldManager().getHandle(world);
-		BlockPosition position = server.getWorldManager().createBlockPosition(x, y, z);
-		return this.playOutBlockChange(worldInstance, position);
+		return new Packet(playOutBlockChange.invoke(null, world.thiz, position.thiz), true);
 	}
 	
 	AbstractExecutor playOutMap;

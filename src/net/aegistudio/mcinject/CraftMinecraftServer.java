@@ -4,8 +4,8 @@ import org.bukkit.Server;
 
 import net.aegistudio.mcinject.network.PacketManager;
 import net.aegistudio.mcinject.network.PlayerManager;
-import net.aegistudio.mcinject.world.CraftWorldShadow;
-import net.aegistudio.mcinject.world.WorldManager;
+import net.aegistudio.mcinject.world.CraftWorldHandle;
+import net.aegistudio.mcinject.world.WorldHandle;
 import net.aegistudio.reflect.clazz.AbstractClass;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.clazz.ThisClass;
@@ -33,7 +33,7 @@ public class CraftMinecraftServer implements MinecraftServer {
 		this.minecraftServer = consoleField.invoke(craftserver);
 		
 		this.minecraftServerClazz = new ThisClass(this.minecraftServer);
-		this.worldManager = new CraftWorldShadow(this);
+		this.worldManager = new CraftWorldHandle(this);
 		this.packetManager = new PacketManager(this);
 		this.playerManager = new PlayerManager(this);
 	}
@@ -57,9 +57,9 @@ public class CraftMinecraftServer implements MinecraftServer {
 		return this.craftbukkitClazz;
 	}
 
-	private final WorldManager worldManager;
+	private final WorldHandle worldManager;
 	@Override
-	public WorldManager getWorldManager() {
+	public WorldHandle getWorldManager() {
 		return worldManager;
 	}
 	

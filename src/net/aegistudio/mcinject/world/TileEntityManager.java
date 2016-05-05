@@ -1,5 +1,8 @@
 package net.aegistudio.mcinject.world;
 
-public class TileEntityManager {
+import net.aegistudio.mcinject.MinecraftServer;
 
+public class TileEntityManager {
+	public TileEntityManager(MinecraftServer server) {
+	}
 }

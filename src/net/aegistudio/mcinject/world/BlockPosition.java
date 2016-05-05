@@ -1,14 +1,35 @@
 package net.aegistudio.mcinject.world;
 
-public class BlockPosition {
-	public Object blockPosition;
-	public WorldManager access;
-	public BlockPosition(WorldManager access, Object blockPosition) {
-		this.access = access;
-		this.blockPosition = blockPosition;
+import net.aegistudio.mcinject.MinecraftServer;
+import net.aegistudio.reflect.clazz.Instance;
+import net.aegistudio.reflect.clazz.SamePackageClass;
+import net.aegistudio.reflect.method.AbstractExecutor;
+import net.aegistudio.reflect.method.MatchedExecutor;
+
+/**
+ * You could directly new this clazz!
+ * 
+ * @author aegistudio
+ */
+
+public class BlockPosition extends Instance<BlockPosition.BlockPositionClass> {
+	public static class BlockPositionClass extends SamePackageClass {
+		public AbstractExecutor newBlockPositionI;
+		public BlockPositionClass(MinecraftServer server) throws Exception{
+			super(server.getMinecraftServerClass(), "BlockPosition");
+			newBlockPositionI = new MatchedExecutor(constructor(), int.class, int.class, int.class);
+		}
+		
+		public Object newBlockPosition(int x, int y, int z) {
+			return newBlockPositionI.invoke(null, x, y, z);
+		}
 	}
 	
-	public Object getBlockPosition() {
-		return this.blockPosition;
+	public BlockPosition(MinecraftServer server, Object blockPosition) {
+		super(server.getWorldManager().blockPositionClass, blockPosition);
+	}
+	
+	public BlockPosition(MinecraftServer server, int x, int y, int z) {
+		this(server, server.getWorldManager().blockPositionClass.newBlockPosition(x, y, z));
 	}
 }

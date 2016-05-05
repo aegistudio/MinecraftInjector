@@ -1,20 +1,44 @@
 package net.aegistudio.mcinject.world;
 
 import net.aegistudio.mcinject.MinecraftServer;
+import net.aegistudio.reflect.clazz.AbstractClass;
+import net.aegistudio.reflect.clazz.Instance;
+import net.aegistudio.reflect.clazz.SamePackageClass;
+import net.aegistudio.reflect.method.AbstractExecutor;
+import net.aegistudio.reflect.method.LengthedExecutor;
 
-public class World {
-	public final WorldManager access;
-	public final Object world;
+/**
+ * Please new this clazz directly!
+ * @author aegistudio
+ */
+
+public class World extends Instance<World.WorldClass>{
+	public static class WorldClass extends SamePackageClass {
+		AbstractExecutor getTileEntityMethod;
+		AbstractExecutor setTileEntityMethod;
+		
+		public WorldClass(MinecraftServer server) throws Exception {
+			super(server.getMinecraftServerClass(), "World");
+			
+			AbstractClass minecraftWorld = new SamePackageClass(server.getMinecraftServerClass(), "World");
+			getTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), "getTileEntity", 1);
+			setTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), "setTileEntity", 2);
+		}
+	}
+
 	public World(MinecraftServer server, Object world) {
-		this.access = server.getWorldManager();
-		this.world = world;
+		super(server.getWorldManager().worldClass, world);
+	}
+
+	public World(MinecraftServer server, org.bukkit.World bukkitWorld) {
+		this(server, server.getWorldManager().getHandle(bukkitWorld));
 	}
 	
 	public Object getTileEntity(BlockPosition blockPosition) {
-		return access.getTileEntityMethod.invoke(world, blockPosition.getBlockPosition());
+		return clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
 	}
-	
+
 	public void setTileEntity(BlockPosition blockPosition, TileEntity tileEntity) {
-		access.setTileEntityMethod.invoke(world, blockPosition.getBlockPosition(), tileEntity.tileEntity);
+		clazz.setTileEntityMethod.invoke(thiz, blockPosition.thiz, tileEntity.tileEntity);
 	}
 }
