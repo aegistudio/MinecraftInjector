@@ -35,6 +35,12 @@ public class PlayerHandle {
 		return new EntityPlayer(clazz, handle);
 	}
 	
+	public Object getConnectionDirectly(Player player) {
+		Object handle = getHandle.invoke(player);
+		Object connection = playerConnection.invoke(handle);
+		return connection;
+	}
+	
 	public PlayerConnection getConnection(Player player) {
 		Object handle = getHandle(player).thiz;
 		Object connection = this.playerConnection.invoke(handle);

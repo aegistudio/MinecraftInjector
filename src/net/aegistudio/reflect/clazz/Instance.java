@@ -4,11 +4,12 @@ public class Instance<Clazz extends Class> {
 	public final Clazz clazz;
 	public final Object thiz;
 
-	public Instance(Clazz clazz, Object instance) throws IllegalArgumentException {
+	public Instance(Clazz clazz, Object instance) throws ClassCastException {
 		this.clazz = clazz;
 		if(clazz != null)
 			if(!clazz.isInstance(instance)) 
-				throw new IllegalArgumentException();
+				throw new ClassCastException("Instance of class " + 
+						instance.getClass() + " cannot be cast to " + clazz );
 		
 		this.thiz = instance;
 	}

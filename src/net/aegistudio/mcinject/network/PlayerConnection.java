@@ -34,7 +34,7 @@ public class PlayerConnection extends Instance<PlayerConnection.Class>{
 	}
 	
 	public PlayerConnection(MinecraftServer server, Player player) {
-		this(server, server.getPlayerManager().getConnection(player));
+		this(server, server.getPlayerManager().getConnectionDirectly(player));
 	}
 	
 	public void sendPacket(Packet<?> packet) {
