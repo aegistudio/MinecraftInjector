@@ -32,4 +32,9 @@ public class FieldInvocable implements Invocable {
 	public void setAccessible(boolean accessible) {
 		field.setAccessible(accessible);
 	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return field.getType();
+	}
 }

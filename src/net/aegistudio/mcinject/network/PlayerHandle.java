@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.mcinject.ProxiedClass;
+import net.aegistudio.mcinject.entity.EntityPlayer;
 import net.aegistudio.reflect.clazz.AbstractClass;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
@@ -28,8 +29,14 @@ public class PlayerHandle {
 		this.playerConnectionClass = new ProxiedClass<PlayerConnection.Class>(server, s -> new PlayerConnection.Class(s));
 	}
 	
-	public PlayerConnection getHandle(Player player) {
+	public EntityPlayer getHandle(Player player) {
 		Object handle = getHandle.invoke(player);
+		EntityPlayer.Class clazz = server.getEntityManager().entityPlayer.getClazz();
+		return new EntityPlayer(clazz, handle);
+	}
+	
+	public PlayerConnection getConnection(Player player) {
+		Object handle = getHandle(player).thiz;
 		Object connection = this.playerConnection.invoke(handle);
 		return new PlayerConnection(server, connection);
 	}

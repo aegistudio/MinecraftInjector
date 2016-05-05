@@ -11,17 +11,18 @@ public class PacketManager {
 	public MinecraftServer server;
 	public ProxiedClass<PacketPlayOutMap.Class> playOutMap;
 	public ProxiedClass<PacketPlayOutBlockChange.Class> playOutBlockChange;
+	public ProxiedClass<PacketPlayOutOpenSignEditor.Class> playOutOpenSignEditor;
+	public ProxiedClass<PacketPlayOutUpdateSign.Class> playOutUpdateSign;
 	
 	public ProxiedClass<PacketPlayInUseEntity.Class> playInUseEntity;
 	
 	public PacketManager(MinecraftServer server) {
 		this.server = server;
-
-		//AbstractClass poSignEditor = new SamePackageClass(server.getMinecraftServerClass(), "PacketPlayOutOpenSignEditor");
-		//this.playOutOpenSignEditor = new LengthedExecutor(poSignEditor.constructor(), 1);
 		
 		this.playOutBlockChange = new ProxiedClass<PacketPlayOutBlockChange.Class>(server, s -> new PacketPlayOutBlockChange.Class(server));
 		this.playOutMap = new ProxiedClass<PacketPlayOutMap.Class>(server, s -> new PacketPlayOutMap.Class(s));
+		this.playOutOpenSignEditor = new ProxiedClass<PacketPlayOutOpenSignEditor.Class>(server, s -> new PacketPlayOutOpenSignEditor.Class(s));
+		this.playOutUpdateSign = new ProxiedClass<PacketPlayOutUpdateSign.Class>(server, s -> new PacketPlayOutUpdateSign.Class(s));
 		
 		this.playInUseEntity = new ProxiedClass<PacketPlayInUseEntity.Class>(server, s -> new PacketPlayInUseEntity.Class(s));
 	}
@@ -35,12 +36,9 @@ public class PacketManager {
 		return new PacketPlayOutMap(server, mapView, raster, rowLength, rowLength, rowLength, rowLength);
 	}
 	
-	/*
-	AbstractExecutor playOutOpenSignEditor;
-	public Packet<?> playOutOpenSignEditor(Object tileEntitySign) {
-		return new Packet(playOutOpenSignEditor.invoke(null, tileEntitySign), true);
+	public Packet<PacketPlayOutOpenSignEditor.Class> playOutOpenSignEditor(BlockPosition position) {
+		return new PacketPlayOutOpenSignEditor(server, position);
 	}
-	*/
 
 	public Packet<PacketPlayInUseEntity.Class> playInUseEntity(org.bukkit.entity.Entity entity) {
 		return new PacketPlayInUseEntity(server, entity);

@@ -1,28 +1,33 @@
 package net.aegistudio.reflect.method;
 
 public class MethodInvocable implements Invocable {
-	private final java.lang.reflect.Method constructor;
+	private final java.lang.reflect.Method method;
 	public MethodInvocable(java.lang.reflect.Method constructor) {
-		this.constructor = constructor;
+		this.method = constructor;
 	}
 	
 	@Override
 	public Object invoke(Object source, Object... paramList) throws Exception {
-		return constructor.invoke(source, paramList);
+		return method.invoke(source, paramList);
 	}
 
 	@Override
 	public String getName() {
-		return constructor.getName();
+		return method.getName();
 	}
 
 	@Override
 	public Class<?>[] getParameterList() {
-		return this.constructor.getParameterTypes();
+		return this.method.getParameterTypes();
 	}
 
 	@Override
 	public void setAccessible(boolean accessible) {
-		this.constructor.setAccessible(accessible);
+		this.method.setAccessible(accessible);
+	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return method.getReturnType();
 	}
 }

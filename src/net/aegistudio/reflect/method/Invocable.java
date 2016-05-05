@@ -7,5 +7,7 @@ public interface Invocable {
 	
 	public Class<?>[] getParameterList();
 	
+	public Class<?> getReturnType();
+	
 	public void setAccessible(boolean accessible);
 }

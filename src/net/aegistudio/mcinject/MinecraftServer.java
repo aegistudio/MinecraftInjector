@@ -2,8 +2,10 @@ package net.aegistudio.mcinject;
 
 import org.bukkit.Server;
 
+import net.aegistudio.mcinject.entity.EntityManager;
 import net.aegistudio.mcinject.network.PacketManager;
 import net.aegistudio.mcinject.network.PlayerHandle;
+import net.aegistudio.mcinject.tileentity.TileEntityManager;
 import net.aegistudio.mcinject.world.WorldHandle;
 import net.aegistudio.reflect.clazz.AbstractClass;
 
@@ -17,4 +19,8 @@ public interface MinecraftServer {
 	public WorldHandle getWorldManager();
 	public PacketManager getPacketManager();
 	public PlayerHandle getPlayerManager();
+	public TileEntityManager getTileEntityManager();
+	public EntityManager getEntityManager();
+	
+	public ChatComponentManager getChatComponentManager();
 }

@@ -1,9 +1,11 @@
 package net.aegistudio.mcinject.world;
 
 import net.aegistudio.mcinject.MinecraftServer;
+import net.aegistudio.mcinject.tileentity.TileEntity;
 import net.aegistudio.reflect.clazz.AbstractClass;
 import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
+import net.aegistudio.reflect.clazz.ThisClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
 import net.aegistudio.reflect.method.LengthedExecutor;
 
@@ -34,11 +36,12 @@ public class World extends Instance<World.Class>{
 		this(server, server.getWorldManager().getHandle(bukkitWorld));
 	}
 	
-	public Object getTileEntity(BlockPosition blockPosition) {
-		return clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
+	public TileEntity<?> getTileEntity(BlockPosition blockPosition) {
+		Object entityObject = clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
+		return new TileEntity<TileEntity.Class>((TileEntity.Class) new ThisClass(entityObject), entityObject);
 	}
 
-	public void setTileEntity(BlockPosition blockPosition, TileEntity tileEntity) {
-		clazz.setTileEntityMethod.invoke(thiz, blockPosition.thiz, tileEntity.tileEntity);
+	public void setTileEntity(BlockPosition blockPosition, TileEntity<?> tileEntity) {
+		clazz.setTileEntityMethod.invoke(thiz, blockPosition.thiz, tileEntity.thiz);
 	}
 }

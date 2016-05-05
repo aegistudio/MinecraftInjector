@@ -9,7 +9,7 @@ import net.aegistudio.reflect.clazz.Instance;
  * @author aegistudio
  */
 
-public abstract class Packet<C extends Packet.Class> extends Instance<C> {
+public class Packet<C extends Packet.Class> extends Instance<C> {
 	public interface Class extends net.aegistudio.reflect.clazz.Class {};
 	
 	public final boolean isPlayOut;

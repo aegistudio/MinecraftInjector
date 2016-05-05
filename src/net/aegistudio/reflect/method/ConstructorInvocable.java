@@ -25,4 +25,9 @@ public class ConstructorInvocable implements Invocable {
 	public void setAccessible(boolean accessible) {
 		this.constructor.setAccessible(accessible);
 	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return constructor.getDeclaringClass();
+	}
 }
