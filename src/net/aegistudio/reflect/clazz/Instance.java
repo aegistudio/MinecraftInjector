@@ -6,7 +6,10 @@ public class Instance<Clazz extends Class> {
 
 	public Instance(Clazz clazz, Object instance) throws IllegalArgumentException {
 		this.clazz = clazz;
-		if(!clazz.isInstance(instance)) throw new IllegalArgumentException();
+		if(clazz != null)
+			if(!clazz.isInstance(instance)) 
+				throw new IllegalArgumentException();
+		
 		this.thiz = instance;
 	}
 
