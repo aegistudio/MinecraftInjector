@@ -8,14 +8,13 @@ import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.mcinject.entity.EntityPlayer;
 import net.aegistudio.mcinject.network.Packet;
 import net.aegistudio.mcinject.network.PacketPlayOutUpdateSign;
-import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
 import net.aegistudio.reflect.method.ConditionedExecutor;
 import net.aegistudio.reflect.method.LengthedExecutor;
 import net.aegistudio.reflect.method.NamedExecutor;
 
-public class TileEntitySign extends Instance<TileEntitySign.Class> {
+public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
 	public static class Class extends SamePackageClass implements TileEntity.Class {
 		AbstractExecutor constructor;
 		AbstractExecutor setOwner;
