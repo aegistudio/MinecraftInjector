@@ -37,6 +37,6 @@ public class TileEntityCommand extends TileEntity<TileEntityCommand.Class>{
 	
 	public CommandBlockListenerAbstract getCommandBlock() {
 		return new CommandBlockListenerAbstract(clazz.server.getTileEntityManager()
-				.commandBlockListenerAbstract.getClazz(), thiz);
+				.commandBlockListenerAbstract.getClazz(), clazz.getCommandBlock(thiz));
 	}
 }
