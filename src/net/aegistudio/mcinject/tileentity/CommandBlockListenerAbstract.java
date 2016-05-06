@@ -3,9 +3,11 @@ package net.aegistudio.mcinject.tileentity;
 import org.bukkit.command.CommandSender;
 
 import net.aegistudio.mcinject.MinecraftServer;
+import net.aegistudio.mcinject.world.World;
 import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
+import net.aegistudio.reflect.method.MatchedExecutor;
 import net.aegistudio.reflect.method.NamedExecutor;
 
 public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerAbstract.Class> {
@@ -13,6 +15,9 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 		AbstractExecutor sender;
 		AbstractExecutor executeCommand;
 		AbstractExecutor getName, setName;
+		AbstractExecutor getCommand, setCommand;
+		
+		AbstractExecutor execute;
 		public Class(MinecraftServer server) throws Exception {
 			super(server.getMinecraftServerClass(), "CommandBlockListenerAbstract");
 			this.sender = new NamedExecutor(field(), "sender");
@@ -20,6 +25,11 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 			
 			this.getName = new NamedExecutor(method(), "getName");
 			this.setName = new NamedExecutor(method(), "setName");
+			
+			this.getCommand = new NamedExecutor(method(), "getCommand");
+			this.setCommand = new NamedExecutor(method(), "setCommand");
+			
+			this.execute = new MatchedExecutor(method(), new World.Class(server).getClazz());
 		}
 	}
 	
@@ -45,5 +55,17 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 	
 	public void setName(String name) {
 		clazz.setName.invoke(thiz, name);
+	}
+	
+	public String getCommand() {
+		return (String)clazz.getCommand.invoke(thiz);
+	}
+	
+	public void setCommand(String command) {
+		clazz.setCommand.invoke(thiz, command);
+	}
+	
+	public void execute(World world) {
+		clazz.execute.invoke(thiz, world.thiz);
 	}
 }
