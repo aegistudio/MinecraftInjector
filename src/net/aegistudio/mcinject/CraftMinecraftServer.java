@@ -2,6 +2,7 @@ package net.aegistudio.mcinject;
 
 import org.bukkit.Server;
 
+import net.aegistudio.mcinject.block.Block;
 import net.aegistudio.mcinject.entity.EntityManager;
 import net.aegistudio.mcinject.network.PacketManager;
 import net.aegistudio.mcinject.network.PlayerHandle;
@@ -41,6 +42,7 @@ public class CraftMinecraftServer implements MinecraftServer {
 		this.chatManager = new ChatComponentManager(this);
 		this.tileEntityManager = new TileEntityManager(this);
 		this.entityManager = new EntityManager(this);
+		this.blockClass = new ProxiedClass<Block.Class>(this, s -> new Block.SuperClass(this));
 	}
 
 	@Override
@@ -96,5 +98,11 @@ public class CraftMinecraftServer implements MinecraftServer {
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
+	}
+
+	private final ProxiedClass<Block.Class> blockClass;
+	@Override
+	public Block.Class getBlockClass() {
+		return blockClass.getClazz();
 	}
 }

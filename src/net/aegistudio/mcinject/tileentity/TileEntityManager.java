@@ -4,8 +4,10 @@ import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.mcinject.ProxiedClass;
 
 public class TileEntityManager {
+	ProxiedClass<TileEntity.Class> tileEntity;
 	ProxiedClass<TileEntitySign.Class> tileEntitySign;
 	public TileEntityManager(MinecraftServer server) {
+		tileEntity = new ProxiedClass<TileEntity.Class>(server, s -> new TileEntitySign.SuperClass(s));
 		tileEntitySign = new ProxiedClass<TileEntitySign.Class>(server, s -> new TileEntitySign.Class(s));
 	}
 }

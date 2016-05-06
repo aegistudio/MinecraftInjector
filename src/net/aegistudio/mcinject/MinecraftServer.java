@@ -2,6 +2,7 @@ package net.aegistudio.mcinject;
 
 import org.bukkit.Server;
 
+import net.aegistudio.mcinject.block.Block;
 import net.aegistudio.mcinject.entity.EntityManager;
 import net.aegistudio.mcinject.network.PacketManager;
 import net.aegistudio.mcinject.network.PlayerHandle;
@@ -23,4 +24,6 @@ public interface MinecraftServer {
 	public EntityManager getEntityManager();
 	
 	public ChatComponentManager getChatComponentManager();
+	
+	public Block.Class getBlockClass();
 }

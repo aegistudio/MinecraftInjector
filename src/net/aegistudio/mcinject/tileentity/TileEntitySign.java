@@ -15,13 +15,13 @@ import net.aegistudio.reflect.method.LengthedExecutor;
 import net.aegistudio.reflect.method.NamedExecutor;
 
 public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
-	public static class Class extends SamePackageClass implements TileEntity.Class {
+	public static class Class extends TileEntity.SubClass implements TileEntity.Class {
 		AbstractExecutor constructor;
 		AbstractExecutor setOwner;
 		AbstractExecutor lines;
 		AbstractExecutor getUpdatePacket;
 		public Class(MinecraftServer server) throws Exception {
-			super(server.getMinecraftServerClass(), "TileEntitySign");
+			super(server, new SamePackageClass(server.getMinecraftServerClass(), "TileEntitySign"));
 			constructor = new LengthedExecutor(constructor(), 0);
 			
 			SamePackageClass entityHuman = new SamePackageClass(
