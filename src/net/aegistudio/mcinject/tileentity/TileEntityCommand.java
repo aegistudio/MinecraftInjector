@@ -34,4 +34,9 @@ public class TileEntityCommand extends TileEntity<TileEntityCommand.Class>{
 		super(server.getTileEntityManager().tileEntityCommand.getClazz(), 
 				server.getTileEntityManager().tileEntityCommand.getClazz().newInstance());
 	}
+	
+	public CommandBlockListenerAbstract getCommandBlock() {
+		return new CommandBlockListenerAbstract(clazz.server.getTileEntityManager()
+				.commandBlockListenerAbstract.getClazz(), thiz);
+	}
 }

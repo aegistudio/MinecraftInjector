@@ -7,10 +7,13 @@ public class TileEntityManager {
 	ProxiedClass<TileEntity.Class> tileEntity;
 	ProxiedClass<TileEntitySign.Class> tileEntitySign;
 	ProxiedClass<TileEntityCommand.Class> tileEntityCommand;
+	ProxiedClass<CommandBlockListenerAbstract.Class> commandBlockListenerAbstract;
 	
 	public TileEntityManager(MinecraftServer server) {
 		tileEntity = new ProxiedClass<TileEntity.Class>(server, s -> new TileEntitySign.SuperClass(s));
 		tileEntitySign = new ProxiedClass<TileEntitySign.Class>(server, s -> new TileEntitySign.Class(s));
 		tileEntityCommand = new ProxiedClass<TileEntityCommand.Class>(server, s -> new TileEntityCommand.Class(s));
+		commandBlockListenerAbstract = new ProxiedClass<CommandBlockListenerAbstract.Class>(server, 
+				s -> new CommandBlockListenerAbstract.Class(s));
 	}
 }
