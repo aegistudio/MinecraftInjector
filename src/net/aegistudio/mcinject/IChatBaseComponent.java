@@ -13,7 +13,7 @@ public class IChatBaseComponent extends Instance<IChatBaseComponent.Class> {
 		public Class(MinecraftServer server) throws Exception {
 			super(server.getMinecraftServerClass(), "IChatBaseComponent");
 			this.getText = new NamedExecutor(method(), "getText");
-			this.getText = new NamedExecutor(method(), "toPainText");
+			this.getText = new NamedExecutor(method(), "toPlainText");
 		}
 		
 		public Object newInstance(String string) {
