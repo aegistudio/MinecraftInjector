@@ -16,6 +16,7 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 		AbstractExecutor executeCommand;
 		AbstractExecutor getName, setName;
 		AbstractExecutor getCommand, setCommand;
+		AbstractExecutor getSendCommandFeedback;
 		
 		AbstractExecutor execute;
 		public Class(MinecraftServer server) throws Exception {
@@ -30,6 +31,7 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 			this.setCommand = new NamedExecutor(method(), "setCommand");
 			
 			this.execute = new MatchedExecutor(method(), new World.Class(server).getClazz());
+			this.getSendCommandFeedback = new NamedExecutor(method(), "getSendCommandFeedback");
 		}
 	}
 	
@@ -67,5 +69,9 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 	
 	public void execute(World world) {
 		clazz.execute.invoke(thiz, world.thiz);
+	}
+	
+	public boolean getSendCommandFeedBack() {
+		return (boolean)clazz.getSendCommandFeedback.invoke(thiz);
 	}
 }
