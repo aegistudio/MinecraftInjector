@@ -2,11 +2,13 @@ package net.aegistudio.mcinject.tileentity;
 
 import org.bukkit.command.CommandSender;
 
+import net.aegistudio.mcinject.IChatBaseComponent;
 import net.aegistudio.mcinject.MinecraftServer;
 import net.aegistudio.mcinject.world.World;
 import net.aegistudio.reflect.clazz.Instance;
 import net.aegistudio.reflect.clazz.SamePackageClass;
 import net.aegistudio.reflect.method.AbstractExecutor;
+import net.aegistudio.reflect.method.ConditionedExecutor;
 import net.aegistudio.reflect.method.MatchedExecutor;
 import net.aegistudio.reflect.method.NamedExecutor;
 
@@ -17,10 +19,14 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 		AbstractExecutor getName, setName;
 		AbstractExecutor getCommand, setCommand;
 		AbstractExecutor getSendCommandFeedback;
+		AbstractExecutor getLatestOutput;
 		
 		AbstractExecutor execute;
+		final MinecraftServer server;
 		public Class(MinecraftServer server) throws Exception {
 			super(server.getMinecraftServerClass(), "CommandBlockListenerAbstract");
+			this.server = server;
+			
 			this.sender = new NamedExecutor(field(), "sender");
 			this.executeCommand = new NamedExecutor(method(), "executeCommand");
 			
@@ -32,6 +38,9 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 			
 			this.execute = new MatchedExecutor(method(), new World.Class(server).getClazz());
 			this.getSendCommandFeedback = new NamedExecutor(method(), "getSendCommandFeedback");
+			
+			this.getLatestOutput = new ConditionedExecutor(method(), invoke -> invoke.getReturnType() 
+					== server.getChatComponentManager().base.getClazz().getClazz());
 		}
 	}
 	
@@ -73,5 +82,9 @@ public class CommandBlockListenerAbstract extends Instance<CommandBlockListenerA
 	
 	public boolean getSendCommandFeedBack() {
 		return (boolean)clazz.getSendCommandFeedback.invoke(thiz);
+	}
+	
+	public IChatBaseComponent getLatestOutput() {
+		return new IChatBaseComponent(clazz.server, clazz.getLatestOutput.invoke(thiz));
 	}
 }
