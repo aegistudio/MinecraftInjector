@@ -35,10 +35,11 @@ public class World extends Instance<World.Class>{
 		this(server, server.getWorldManager().getHandle(bukkitWorld));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T extends TileEntity.Class> TileEntity<T> getTileEntity(BlockPosition blockPosition, T cast) {
 		Object entityObject = clazz.getTileEntityMethod.invoke(thiz, blockPosition.thiz);
 		if(entityObject == null) return null;
-		return new TileEntity<T>(cast, entityObject);
+		return (TileEntity<T>) cast.newInstance(entityObject);
 	}
 
 	public void setTileEntity(BlockPosition blockPosition, TileEntity<?> tileEntity) {

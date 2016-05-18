@@ -20,8 +20,10 @@ public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
 		AbstractExecutor setOwner;
 		AbstractExecutor lines;
 		AbstractExecutor getUpdatePacket;
+		MinecraftServer server;
 		public Class(MinecraftServer server) throws Exception {
 			super(server, new SamePackageClass(server.getMinecraftServerClass(), "TileEntitySign"));
+			this.server = server;
 			constructor = new LengthedExecutor(constructor(), 0);
 			
 			SamePackageClass entityHuman = new SamePackageClass(
@@ -54,6 +56,11 @@ public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
 		public Object getUpdatePacket(Object tileEntitySign) {
 			return getUpdatePacket.invoke(tileEntitySign);
 		}
+
+		@Override
+		public TileEntity<?> newInstance(Object instance) {
+			return new TileEntitySign(this, instance);
+		}
 	}
 	
 	private final MinecraftServer server;
@@ -61,6 +68,11 @@ public class TileEntitySign extends TileEntity<TileEntitySign.Class> {
 		super(server.getTileEntityManager().tileEntitySign.getClazz(), 
 				server.getTileEntityManager().tileEntitySign.getClazz().newInstance());
 		this.server = server;
+	}
+	
+	public TileEntitySign(Class clazz, Object instance) {
+		super(clazz, instance);
+		this.server = clazz.server;
 	}
 	
 	public void setOwner(EntityPlayer player) {

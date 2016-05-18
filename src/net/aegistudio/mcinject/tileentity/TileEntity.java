@@ -20,6 +20,8 @@ public class TileEntity<T extends TileEntity.Class> extends Instance<T>{
 		
 		public BlockPosition getPosition(Object thiz);
 		public void setPosition(Object thiz, BlockPosition pos);
+		
+		public TileEntity<?> newInstance(Object instance);
 	};
 	
 	public static class SuperClass extends SamePackageClass implements Class {
@@ -38,9 +40,15 @@ public class TileEntity<T extends TileEntity.Class> extends Instance<T>{
 		
 		public BlockPosition getPosition(Object thiz) {	return new BlockPosition(server, position.invoke(thiz));		}
 		public void setPosition(Object thiz, BlockPosition pos) {		position.invoke(thiz, pos.thiz);		}
+
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@Override
+		public TileEntity<?> newInstance(Object instance) {
+			return new TileEntity(this, instance);
+		}
 	}
 	
-	public static class SubClass extends DelegateClass implements Class {
+	public static abstract class SubClass extends DelegateClass implements Class {
 		protected MinecraftServer server;
 		protected TileEntity.Class clazz;
 		public SubClass(MinecraftServer server, net.aegistudio.reflect.clazz.Class clazz) {

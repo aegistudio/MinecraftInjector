@@ -24,6 +24,11 @@ public class TileEntityCommand extends TileEntity<TileEntityCommand.Class>{
 		public Object getCommandBlock(Object instance) {
 			return getCommandBlock.invoke(instance);
 		}
+
+		@Override
+		public TileEntityCommand newInstance(Object instance) {
+			return new TileEntityCommand(this, instance);
+		}
 	}
 	
 	public TileEntityCommand(Class clazz, Object instance) {
