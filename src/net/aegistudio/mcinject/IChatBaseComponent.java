@@ -12,8 +12,8 @@ public class IChatBaseComponent extends Instance<IChatBaseComponent.Class> {
 		AbstractExecutor toPlainText;
 		public Class(MinecraftServer server) throws Exception {
 			super(server.getMinecraftServerClass(), "IChatBaseComponent");
-			this.getText = new NamedExecutor(method(), "getText");
-			this.toPlainText = new NamedExecutor(method(), "toPlainText");
+			this.getText = new NamedExecutor(method(), "getText", "e");
+			this.toPlainText = new NamedExecutor(method(), "toPlainText", "c");
 		}
 		
 		public Object newInstance(String string) {

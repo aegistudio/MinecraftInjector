@@ -22,8 +22,8 @@ public class World extends Instance<World.Class>{
 			super(server.getMinecraftServerClass(), "World");
 			
 			AbstractClass minecraftWorld = new SamePackageClass(server.getMinecraftServerClass(), "World");
-			getTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), "getTileEntity", 1);
-			setTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), "setTileEntity", 2);
+			getTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), 1, "getTileEntity");
+			setTileEntityMethod = new LengthedExecutor(minecraftWorld.method(), 2, "setTileEntity");
 		}
 	}
 
