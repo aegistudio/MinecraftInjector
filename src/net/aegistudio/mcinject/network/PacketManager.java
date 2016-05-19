@@ -13,7 +13,7 @@ public class PacketManager {
 	public ProxiedClass<PacketPlayOutBlockChange.Class> playOutBlockChange;
 	public ProxiedClass<PacketPlayOutOpenSignEditor.Class> playOutOpenSignEditor;
 	public ProxiedClass<PacketPlayOutUpdateSign.Class> playOutUpdateSign;
-	
+	public ProxiedClass<PacketPlayOutSetSlot.Class> playOutSetSlot;
 	public ProxiedClass<PacketPlayInUseEntity.Class> playInUseEntity;
 	
 	public PacketManager(MinecraftServer server) {
@@ -23,6 +23,7 @@ public class PacketManager {
 		this.playOutMap = new ProxiedClass<PacketPlayOutMap.Class>(server, s -> new PacketPlayOutMap.Class(s));
 		this.playOutOpenSignEditor = new ProxiedClass<PacketPlayOutOpenSignEditor.Class>(server, s -> new PacketPlayOutOpenSignEditor.Class(s));
 		this.playOutUpdateSign = new ProxiedClass<PacketPlayOutUpdateSign.Class>(server, s -> new PacketPlayOutUpdateSign.Class(s));
+		this.playOutSetSlot = new ProxiedClass<PacketPlayOutSetSlot.Class>(server, s -> new PacketPlayOutSetSlot.Class(s));
 		
 		this.playInUseEntity = new ProxiedClass<PacketPlayInUseEntity.Class>(server, s -> new PacketPlayInUseEntity.Class(s));
 	}
