@@ -28,7 +28,7 @@ public class PacketPlayOutSetSlot extends Packet<PacketPlayOutSetSlot.Class> {
 			
 			AbstractClass samePackageClazz = new SamePackageClass(server.getBukkitServerClass(), 
 					"inventory.CraftItemStack");
-			this.getItemStackHandle = new NamedExecutor(samePackageClazz.method(), "getHandle");
+			this.getItemStackHandle = new NamedExecutor(samePackageClazz.field(), "handle");
 		}
 		
 		public Object getItemStack(ItemStack itemStack) {
