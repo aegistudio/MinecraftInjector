@@ -4,6 +4,14 @@
 	<!-- mcinject.reppkg: rename the package prefix. -->
 	<!-- mcinject.repdir: reallocate the code to location. -->
 	
+	<loadresource property="mcinject.repdir">
+	<propertyresource name="mcinject.reppkg"/><filterchain>
+		<tokenfilter>
+			<filetokenizer/>
+			<replacestring from="." to="${file.separator}"/>
+		</tokenfilter>
+	</filterchain></loadresource>
+
 	<property file="mcinject.properties"/>
 	<property name="ps" value="${path.separator}"/>
 	<property name="fs" value="${file.separator}"/>
@@ -11,6 +19,7 @@
 	<property name="mcinject.temp.path" value="${mcinject.path}${fs}temp"/>
 	
 	<target name="dependency">
+		<delete dir="${mcinject.path}"/>
 		<mkdir dir="${mcinject.path}"/>
 		<mkdir dir="${mcinject.temp.path}"/>
 		

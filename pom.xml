@@ -18,7 +18,7 @@
 	<build>
 		<sourceDirectory>main/java</sourceDirectory>
 		<resources><resource>
-			<directory>main/resource</directory>
+			<directory>main/resources</directory>
 		</resource></resources>
 		<plugins>
 			<plugin>
