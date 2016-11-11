@@ -5,7 +5,7 @@
 	<artifactId>minecraft-injector</artifactId>
 	<version>1.0</version>
 	<name>Minecraft Injector</name>
-	<description> A bukkit (minecraft server) injector that is version independent.</description>
+	<description>A bukkit (minecraft server) injector that is version independent.</description>
  
 	<dependencies>
 		<dependency>

@@ -2,7 +2,7 @@
 <project name="MinecraftInject" default="propertySignature">
 	<property name="ps" value="${path.separator}"/>
 	<property name="fs" value="${file.separator}"/>
-	<property name="sign.file" value="main${fs}resource${fs}mcinject.properties"/>
+	<property name="sign.file" value="main${fs}resources${fs}mcinject.properties"/>
 	
 	<target name="propertySignature">
 		<echo message="Generating property signature."/>
