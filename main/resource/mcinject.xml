@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MinecraftInject" default="dependency">
+	<!-- mcinject.path: the working directory of mcinject. -->
+	<!-- mcinject.reppkg: rename the package prefix. -->
+	<!-- mcinject.repdir: reallocate the code to location. -->
+	
+	<property file="mcinject.properties"/>
+	<property name="ps" value="${path.separator}"/>
+	<property name="fs" value="${file.separator}"/>
+	<property name="mcinject.jar.path" value="${mcinject.path}${fs}mcinject.jar"/>
+	<property name="mcinject.temp.path" value="${mcinject.path}${fs}temp"/>
+	
+	<target name="dependency">
+		<mkdir dir="${mcinject.path}"/>
+		<mkdir dir="${mcinject.temp.path}"/>
+		
+		<!-- fetch jar from remote repository and unpackage. -->
+		<get src="${mcinject.remote}" dest="${mcinject.jar.path}" verbose="true"/>
+		<unjar src="${mcinject.jar.path}" dest="${mcinject.temp.path}"/>
+		<delete file="${mcinject.jar.path}"></delete>
+		
+		<!-- reallocate source code -->
+		<copy todir="${mcinject.path}${fs}${mcinject.repdir}">
+			<fileset dir="${mcinject.temp.path}${fs}net${fs}aegistudio"/>
+		</copy>
+		<delete dir="${mcinject.temp.path}"></delete>
+		
+		<!-- formating -->
+		<replaceregexp byline="true">
+			<regexp pattern="net.aegistudio" />
+			<substitution expression="${mcinject.reppkg}"/>
+			<fileset dir="${mcinject.path}"/>
+		</replaceregexp>
+	</target>
+</project>

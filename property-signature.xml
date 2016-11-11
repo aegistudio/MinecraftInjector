@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MinecraftInject" default="propertySignature">
+	<property name="ps" value="${path.separator}"/>
+	<property name="fs" value="${file.separator}"/>
+	<property name="sign.file" value="main${fs}resource${fs}mcinject.properties"/>
+	
+	<target name="propertySignature">
+		<echo message="Generating property signature."/>
+		<echo message="mcinject.remote=http://nexus.aegistudio.net/repository/release/net/aegistudio/mcinject/minecraft-injector/${project.version}/minecraft-injector-${project.version}-sources.jar"
+			file="${sign.file}"/>
+	</target>
+</project>
